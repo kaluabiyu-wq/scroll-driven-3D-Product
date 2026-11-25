@@ -1,0 +1,1 @@
+export const scrollState = { target: 0, current: 0 };
