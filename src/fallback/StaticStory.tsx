@@ -1,4 +1,5 @@
 import { chapters } from '../config/chapters';
+import ColorSwitcher from '../ui/ColorSwitcher/ColorSwitcher';
 
 /**
  * Shown when WebGL is unavailable or the visitor prefers reduced motion.
@@ -7,6 +8,7 @@ import { chapters } from '../config/chapters';
 export default function StaticStory() {
   return (
     <main className="static-story">
+      <ColorSwitcher always />
       <div className="static-orb" aria-hidden="true" />
       {chapters.map((c) => (
         <section key={c.id} id={c.id} className="static-chapter">

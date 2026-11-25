@@ -1,15 +1,24 @@
+export type QualityTier = 'low' | 'medium' | 'high';
 export type Quality = {
+  tier: QualityTier;
   dpr: [number, number];
   shadows: boolean;
+  antialias: boolean;
 };
 
-/** Pick render quality once, from the device. Mobile gets a lighter scene. */
+/** Conservative device tiers keep mobile GPU and memory use bounded. */
 export function getQuality(): Quality {
-  const coarse =
-    typeof window !== 'undefined' &&
+  const coarse = typeof window !== 'undefined' &&
     (window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768);
-
-  return coarse ? { dpr: [1, 1.5], shadows: false } : { dpr: [1, 2], shadows: true };
+  const memory = typeof navigator !== 'undefined' ? (navigator as Navigator & { deviceMemory?: number }).deviceMemory : undefined;
+  const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency : undefined;
+  if (coarse || (memory !== undefined && memory <= 4) || (cores !== undefined && cores <= 4)) {
+    return { tier: 'low', dpr: [1, 1.25], shadows: false, antialias: false };
+  }
+  if (memory !== undefined && memory <= 8) {
+    return { tier: 'medium', dpr: [1, 1.5], shadows: false, antialias: true };
+  }
+  return { tier: 'high', dpr: [1, 2], shadows: true, antialias: true };
 }
 
 /** Set VITE_USE_GLB=true to load /models/product.glb instead of the procedural model. */

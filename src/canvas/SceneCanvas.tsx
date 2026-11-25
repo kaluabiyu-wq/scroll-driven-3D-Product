@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ContactShadows, Environment, Lightformer } from '@react-three/drei';
 import { getQuality } from '../config/quality';
@@ -6,16 +6,31 @@ import CameraRig from './CameraRig';
 import ScrollSync from './ScrollSync';
 import Headphones from './product/Headphones';
 
+
 const quality = getQuality();
 
 /** Fixed full-screen canvas behind the page content. */
 export default function SceneCanvas() {
+  const [visible, setVisible] = useState(() => typeof document === 'undefined' || document.visibilityState === 'visible');
+
+  useEffect(() => {
+    const update = () => setVisible(document.visibilityState === 'visible');
+    document.addEventListener('visibilitychange', update);
+    return () => document.removeEventListener('visibilitychange', update);
+  }, []);
+
   return (
     <div className="canvas-layer" aria-hidden="true">
       <Canvas
         dpr={quality.dpr}
         camera={{ fov: 38, position: [0, 0.3, 6.2], near: 0.1, far: 60 }}
-        gl={{ antialias: true, powerPreference: 'high-performance' }}
+        gl={{ antialias: quality.antialias, powerPreference: 'high-performance' }}
+        frameloop={visible ? 'always' : 'never'}
+        onCreated={({ gl }) => {
+          gl.domElement.addEventListener('webglcontextlost', () => {
+            window.dispatchEvent(new Event('halo:webgl-lost'));
+          }, { once: true });
+        }}
       >
         <ScrollSync />
         <CameraRig />

@@ -1,7 +1,7 @@
 import { CatmullRomCurve3, Vector3 } from 'three';
 
 /**
- * Camera keyframes, evenly spaced over the scroll (7 keys, 6 chapters).
+ * Camera keyframes, evenly spaced over the scroll (7 keys, 6 intervals).
  * `pos` is where the camera is, `look` is the point it aims at.
  */
 const KEYS = [

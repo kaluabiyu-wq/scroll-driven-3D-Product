@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import type { Group } from 'three';
 import { useExplode } from './useExplode';
+import { useProductVariant } from '../../core/preferences/VariantContext';
+import { getQuality } from '../../config/quality';
 
 /**
  * Built-in stand-in for the Blender model, with the same part names.
@@ -14,22 +16,23 @@ const SIDES = [
 const SIDE_ROT: [number, number, number] = [0, 0, Math.PI / 2]; // cylinder axis -> X
 const TORUS_ROT: [number, number, number] = [0, Math.PI / 2, 0]; // torus axis -> X
 
+const QUALITY = getQuality();
+const DETAIL = QUALITY.tier === 'low' ? 24 : QUALITY.tier === 'medium' ? 40 : 64;
+
 const COLORS = {
-  shell: '#262a33',
   metal: '#c4c9d4',
-  foam: '#2f333d',
   driver: '#4a5160',
-  accent: '#7fe3d1',
 };
 
 export default function ProceduralHeadphones() {
-  const root = useRef<Group>(null);
+  const root = useRef<Group | null>(null);
+  const { variant } = useProductVariant();
   useExplode(root, 'procedural');
 
   return (
     <group ref={root}>
       <mesh name="headband" position={[0, 0.3, 0]}>
-        <torusGeometry args={[1.15, 0.07, 20, 96, Math.PI]} />
+        <torusGeometry args={[1.15, 0.07, QUALITY.tier === 'low' ? 10 : 20, DETAIL + 16, Math.PI]} />
         <meshStandardMaterial color={COLORS.metal} metalness={1} roughness={0.28} />
       </mesh>
 
@@ -41,25 +44,25 @@ export default function ProceduralHeadphones() {
           </mesh>
 
           <mesh name={`cup_${s}`} position={[x * 1.05, 0, 0]} rotation={SIDE_ROT}>
-            <cylinderGeometry args={[0.56, 0.52, 0.3, 64]} />
-            <meshStandardMaterial color={COLORS.shell} metalness={0.35} roughness={0.38} />
+            <cylinderGeometry args={[0.56, 0.52, 0.3, DETAIL]} />
+            <meshStandardMaterial color={variant.shell} metalness={0.35} roughness={0.38} />
           </mesh>
 
           <mesh name={`cushion_${s}`} position={[x * 0.8, 0, 0]} rotation={TORUS_ROT}>
-            <torusGeometry args={[0.42, 0.13, 24, 64]} />
-            <meshStandardMaterial color={COLORS.foam} roughness={0.92} />
+            <torusGeometry args={[0.42, 0.13, QUALITY.tier === 'low' ? 12 : 24, DETAIL]} />
+            <meshStandardMaterial color={variant.foam} roughness={0.92} />
           </mesh>
 
           <mesh name={`driver_${s}`} position={[x * 1.0, 0, 0]} rotation={SIDE_ROT}>
-            <cylinderGeometry args={[0.32, 0.32, 0.08, 48]} />
+            <cylinderGeometry args={[0.32, 0.32, 0.08, DETAIL]} />
             <meshStandardMaterial color={COLORS.driver} metalness={0.6} roughness={0.3} />
           </mesh>
 
           <mesh name={`logo_${s}`} position={[x * 1.21, 0, 0]} rotation={SIDE_ROT}>
-            <cylinderGeometry args={[0.16, 0.16, 0.02, 40]} />
+            <cylinderGeometry args={[0.16, 0.16, 0.02, Math.max(16, Math.round(DETAIL * 0.6))]} />
             <meshStandardMaterial
-              color={COLORS.accent}
-              emissive={COLORS.accent}
+              color={variant.accent}
+              emissive={variant.accent}
               emissiveIntensity={0.35}
               roughness={0.4}
             />

@@ -33,10 +33,12 @@ same part names as the Blender export, so the exploded view works straight away.
 | Model turn, field of view, explode timing| `src/config/timeline.ts`          |
 | Which parts explode, how far, how late   | `src/config/parts.ts`             |
 | Mobile quality, GLB switch               | `src/config/quality.ts`           |
-| Colours and type                         | `src/index.css` (`:root` tokens)  |
+| Colours and type                         | `src/index.css` (`:root` tokens)
+| Product finishes                        | `src/config/variants.ts` and `src/canvas/product/ProceduralHeadphones.tsx`  |
 
-If you add or remove chapters, update the camera keys and timeline numbers so they stay
-evenly spaced over 0 to 1 (chapter i covers i/n to (i+1)/n of the scroll).
+Each chapter declares its exact `start` and `end` progress values in `src/config/chapters.ts`.
+The page allocates 700 viewport-heights to the scrollable story. The final chapter fills
+the remaining viewport at the end, so all seven ranges match the roadmap's 0.00–1.00 timeline.
 
 ## How scroll drives the scene
 

@@ -5,8 +5,8 @@
 
 /** Parts separate between `in[0]` and `in[1]`, and come back between `out[0]` and `out[1]`. */
 export const EXPLODE = {
-  in: [0.38, 0.52] as const,
-  out: [0.7, 0.82] as const,
+  in: [0.48, 0.68] as const,
+  out: [0.68, 0.82] as const,
 };
 
 /** Model Y rotation (radians), evenly spaced over the whole scroll. */

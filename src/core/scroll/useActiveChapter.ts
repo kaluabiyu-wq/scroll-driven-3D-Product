@@ -10,7 +10,7 @@ export function useActiveChapter() {
     let raf = 0;
     const loop = () => {
       const p = scrollState.current;
-      const index = Math.min(chapters.length - 1, Math.floor(p * chapters.length));
+      const index = Math.max(0, chapters.findIndex((chapter, i) => p >= chapter.start && (p < chapter.end || i === chapters.length - 1)));
       const started = p > 0.02;
       setState((s) => (s.index === index && s.started === started ? s : { index, started }));
       raf = requestAnimationFrame(loop);
