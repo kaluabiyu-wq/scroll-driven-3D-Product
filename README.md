@@ -17,12 +17,7 @@ npm run preview    # serve the production build
 No model file is needed: the app draws a built-in procedural headphones model that uses the
 same part names as the Blender export, so the exploded view works straight away.
 
-## Use your own Blender model
 
-1. Export a GLB from Blender (see `docs/blender-guide.md`) to `public/models/product.glb`.
-2. Copy `.env.example` to `.env` and set `VITE_USE_GLB=true`.
-3. Restart `npm run dev`. The console warns about any part name from `src/config/parts.ts`
-   that the model does not contain.
 
 ## Where to change things
 

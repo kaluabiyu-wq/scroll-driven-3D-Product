@@ -19,6 +19,7 @@ function FullExperience() {
 
   return (
     <>
+      <main id="main-content">
       <SceneCanvas />
       <Header />
       <ShareControls />
@@ -29,6 +30,7 @@ function FullExperience() {
       <ColorSwitcher />
       <BackToTop />
       <Loader />
+      </main>
     </>
   );
 }
@@ -49,7 +51,7 @@ export default function App() {
   }, []);
   return (
     <VariantProvider>
-      {mode === 'full' ? <FullExperience /> : <StaticStory />}
+      {mode === 'full' ? <FullExperience /> : <div id="main-content"><StaticStory /></div>}
     </VariantProvider>
   );
 }

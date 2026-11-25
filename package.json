@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "node --experimental-strip-types --test tests/unit/*.test.mjs",
-    "check:parts": "node scripts/check-part-names.mjs"
+    "check:parts": "node scripts/check-part-names.mjs",
+    "test:e2e": "playwright test -c tests/e2e/playwright.config.ts",
+    "check": "npm run test && npm run build"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",

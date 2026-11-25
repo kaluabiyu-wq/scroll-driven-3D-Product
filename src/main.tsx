@@ -5,6 +5,7 @@ import App from './App';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <a className="skip-link" href="#main-content">Skip to main content</a>
     <App />
   </StrictMode>,
 );
