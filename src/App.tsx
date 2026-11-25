@@ -10,6 +10,9 @@ import ScrollHint from './ui/ScrollHint';
 import StaticStory from './fallback/StaticStory';
 import { VariantProvider } from './core/preferences/VariantContext';
 import ColorSwitcher from './ui/ColorSwitcher/ColorSwitcher';
+import ProductDetails from './ui/Details/ProductDetails';
+import ShareControls from './ui/ShareControls';
+import BackToTop from './ui/BackToTop';
 
 function FullExperience() {
   useSmoothScroll();
@@ -18,10 +21,13 @@ function FullExperience() {
     <>
       <SceneCanvas />
       <Header />
+      <ShareControls />
       <Story />
+      <ProductDetails />
       <ProgressRail />
       <ScrollHint />
       <ColorSwitcher />
+      <BackToTop />
       <Loader />
     </>
   );

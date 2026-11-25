@@ -56,7 +56,7 @@ export default function Story() {
             )}
             <p>{c.text}</p>
             {c.cta && (
-              <a className="cta" href="#intro">
+              <a className="cta" href="#details">
                 {c.cta}
               </a>
             )}

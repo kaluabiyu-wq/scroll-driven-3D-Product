@@ -77,3 +77,7 @@ source/         keep your .blend file here (not served)
 - Lighting uses built-in Lightformers, so no HDR file is downloaded.
 - Next steps from the roadmap: compress the GLB (gltf-transform), part callout labels,
   colour variants, unit tests for `src/animation`, Playwright end-to-end tests.
+
+## Product experience additions
+
+The story includes a specification summary, keyboard-accessible FAQ, persistent finish preference, native share/copy-link control and a contextual Back to top action. These work in both the WebGL experience and static fallback. Halo H1 is a fictional showcase product; no checkout or mailing-list service is connected.
