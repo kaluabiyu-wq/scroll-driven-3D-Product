@@ -29,3 +29,5 @@ export function getQuality(preference: QualityPreference = 'auto'): Quality {
 /** Set VITE_USE_GLB=true to load /models/product.glb instead of the procedural model. */
 export const USE_GLB = import.meta.env.VITE_USE_GLB === 'true';
 export const GLB_URL = '/models/product.glb';
+/** Optional separately optimized model; leave empty until a licensed mobile GLB is supplied. */
+export const GLB_MOBILE_URL = import.meta.env.VITE_GLB_MOBILE_URL?.trim() || '';

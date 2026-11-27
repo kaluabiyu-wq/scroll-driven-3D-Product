@@ -108,3 +108,7 @@ GitHub Actions runs `npm ci`, the unit suite and the production build for pushes
 ## Graphics quality control
 
 Use the on-screen **3D quality** selector to choose Auto, Low, Medium or High. Auto selects a conservative tier from available device hints; manual choices override the automatic tier. The selection is saved locally. Low reduces pixel ratio and geometry detail and disables shadows/antialiasing; High enables the full desktop quality budget. Changing tiers rebuilds the WebGL renderer so the selected settings take effect consistently.
+
+## Finish comparison
+
+The product details section includes a side-by-side finish comparison. It reads the active finish from the same `VariantContext` used by the 3D model and lets visitors choose a second finish. Shell, accent and cushion colour values come directly from `src/config/variants.ts`; no product specifications or retail claims are invented.

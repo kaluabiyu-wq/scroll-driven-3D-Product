@@ -560,3 +560,46 @@ button:focus-visible, summary:focus-visible {
 @media print {
   .quality-settings { display: none; }
 }
+
+/* ---------- side-by-side finish comparison ---------- */
+.finish-comparison {
+  margin: clamp(3rem, 7vw, 6rem) 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 1.25rem;
+  background: rgba(255,255,255,.035);
+}
+.comparison-heading { max-width: 38rem; }
+.comparison-heading h3 {
+  margin: .35rem 0 .6rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  letter-spacing: -.03em;
+}
+.comparison-heading > p:last-child,
+.comparison-note { color: var(--muted); line-height: 1.6; }
+.comparison-select-label { display: block; margin: 1.25rem 0 .4rem; color: var(--muted); font-size: .85rem; }
+#comparison-finish {
+  min-width: min(100%, 15rem);
+  padding: .7rem .9rem;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: .65rem;
+  background: #20252e;
+  color: var(--text);
+  font: inherit;
+}
+.comparison-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
+.comparison-card { min-width: 0; padding: 1rem; border-radius: .9rem; background: rgba(0,0,0,.18); }
+.comparison-card-top { display: grid; gap: .25rem; margin-bottom: 1rem; }
+.comparison-card-top span { color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+.comparison-card-top strong { font-family: var(--font-display); font-size: 1.35rem; }
+.finish-swatches { display: grid; gap: .75rem; }
+.finish-swatch { display: grid; grid-template-columns: 2rem minmax(4rem, 1fr) auto; align-items: center; gap: .65rem; font-size: .85rem; }
+.swatch { width: 2rem; height: 2rem; border: 1px solid rgba(255,255,255,.28); border-radius: .55rem; }
+.finish-swatch code { color: var(--muted); font-size: .7rem; }
+.comparison-note { margin: 1rem 0 0; font-size: .8rem; }
+#comparison-finish:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 640px) {
+  .comparison-grid { grid-template-columns: 1fr; }
+  .finish-swatch { grid-template-columns: 2rem 1fr auto; }
+}

@@ -1,3 +1,5 @@
+import ProductComparison from '../Comparison/ProductComparison';
+
 const specs = [
   { value: '40 mm', label: 'Dynamic drivers' },
   { value: '40 hrs', label: 'Battery life (up to)' },
@@ -26,6 +28,7 @@ export default function ProductDetails() {
             </article>
           ))}
         </div>
+        <ProductComparison />
         <div className="faq" aria-labelledby="faq-title">
           <h3 id="faq-title">Frequently asked questions</h3>
           {questions.map((item) => (

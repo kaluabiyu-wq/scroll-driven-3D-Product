@@ -2,13 +2,13 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { Color } from 'three';
 import type { Group, Mesh } from 'three';
-import { GLB_URL } from '../../config/quality';
+
 import { useProductVariant } from '../../core/preferences/VariantContext';
 import { useExplode } from './useExplode';
 
 /** Loads a Blender export, clones its materials and applies the selected finish. */
-export default function GlbHeadphones() {
-  const { scene } = useGLTF(GLB_URL);
+export default function GlbHeadphones({ url }: { url: string }) {
+  const { scene } = useGLTF(url);
   const { variant } = useProductVariant();
   const productScene = useMemo(() => {
     const clone = scene.clone(true);
