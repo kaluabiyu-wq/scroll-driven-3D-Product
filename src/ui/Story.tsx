@@ -39,7 +39,7 @@ export default function Story() {
   }, []);
 
   return (
-    <main id="story" ref={root}>
+    <div id="story" ref={root}>
       {chapters.map((c, i) => (
         <section
           key={c.id}
@@ -63,6 +63,6 @@ export default function Story() {
           </div>
         </section>
       ))}
-    </main>
+    </div>
   );
 }

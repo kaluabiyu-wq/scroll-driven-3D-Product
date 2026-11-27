@@ -1,0 +1,13 @@
+{
+  "name": "Halo H1 — 3D Product Story",
+  "short_name": "Halo H1",
+  "description": "An interactive, scroll-driven 3D product story for the fictional Halo H1 headphones.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#15181e",
+  "theme_color": "#15181e",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

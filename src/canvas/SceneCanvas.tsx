@@ -12,11 +12,18 @@ const quality = getQuality();
 /** Fixed full-screen canvas behind the page content. */
 export default function SceneCanvas() {
   const [visible, setVisible] = useState(() => typeof document === 'undefined' || document.visibilityState === 'visible');
+  const [inViewport, setInViewport] = useState(true);
 
   useEffect(() => {
     const update = () => setVisible(document.visibilityState === 'visible');
     document.addEventListener('visibilitychange', update);
-    return () => document.removeEventListener('visibilitychange', update);
+    const observer = new IntersectionObserver(([entry]) => setInViewport(entry.isIntersecting), { threshold: 0 });
+    const layer = document.querySelector('.canvas-layer');
+    if (layer) observer.observe(layer);
+    return () => {
+      document.removeEventListener('visibilitychange', update);
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -25,7 +32,7 @@ export default function SceneCanvas() {
         dpr={quality.dpr}
         camera={{ fov: 38, position: [0, 0.3, 6.2], near: 0.1, far: 60 }}
         gl={{ antialias: quality.antialias, powerPreference: 'high-performance' }}
-        frameloop={visible ? 'always' : 'never'}
+        frameloop={visible && inViewport ? 'always' : 'never'}
         onCreated={({ gl }) => {
           gl.domElement.addEventListener('webglcontextlost', () => {
             window.dispatchEvent(new Event('halo:webgl-lost'));

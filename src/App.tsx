@@ -13,6 +13,7 @@ import ColorSwitcher from './ui/ColorSwitcher/ColorSwitcher';
 import ProductDetails from './ui/Details/ProductDetails';
 import ShareControls from './ui/ShareControls';
 import BackToTop from './ui/BackToTop';
+import NetworkStatus from './ui/NetworkStatus';
 
 function FullExperience() {
   useSmoothScroll();
@@ -20,16 +21,17 @@ function FullExperience() {
   return (
     <>
       <main id="main-content">
-      <SceneCanvas />
-      <Header />
-      <ShareControls />
-      <Story />
-      <ProductDetails />
-      <ProgressRail />
-      <ScrollHint />
-      <ColorSwitcher />
-      <BackToTop />
-      <Loader />
+        <SceneCanvas />
+        <Header />
+        <ShareControls />
+        <Story />
+        <ProductDetails />
+        <ProgressRail />
+        <ScrollHint />
+        <ColorSwitcher />
+        <BackToTop />
+        <NetworkStatus />
+        <Loader />
       </main>
     </>
   );

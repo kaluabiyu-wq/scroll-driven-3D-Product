@@ -12,12 +12,18 @@ npm install
 npm run dev        # http://localhost:5173
 npm run build      # type-check + production build into dist/
 npm run preview    # serve the production build
+npm run test:e2e   # optional browser tests (see below)
 ```
 
 No model file is needed: the app draws a built-in procedural headphones model that uses the
 same part names as the Blender export, so the exploded view works straight away.
 
+## Use your own Blender model
 
+1. Export a GLB from Blender (see `docs/blender-guide.md`) to `public/models/product.glb`.
+2. Copy `.env.example` to `.env` and set `VITE_USE_GLB=true`.
+3. Restart `npm run dev`. The console warns about any part name from `src/config/parts.ts`
+   that the model does not contain.
 
 ## Where to change things
 
@@ -66,12 +72,30 @@ docs/           Blender guide
 source/         keep your .blend file here (not served)
 ```
 
+## Offline and installable experience
+
+The production build registers a small service worker and web app manifest. It caches the app shell and same-origin built assets as they are used, so a previously visited story can reopen offline. A small status notice announces when the browser loses its connection. Bump the cache version in `public/sw.js` when changing the offline shell.
+
+The 3D render loop pauses while the browser tab is hidden. Device tiers still cap pixel ratio and disable contact shadows on low-tier devices.
+
+## Model asset pipeline
+
+- Keep the editable `.blend` source outside `public/` (for example in `source/`).
+- Export a desktop GLB to `public/models/product.glb` and a separate reduced-triangle mobile GLB when available.
+- Validate required node names with `npm run check:parts -- public/models/product.glb`.
+- Install the optional optimizer once with `npm i -D @gltf-transform/cli`, then run `node scripts/optimize-model.mjs input.glb output.glb`.
+- Keep model files under the budgets in `docs/performance-budget.md`; do not commit assets without a clear licence.
+
+## Browser tests
+
+Install the optional Playwright runner and Chromium with `npm i -D @playwright/test` and `npx playwright install chromium`, then run `npm run test:e2e`. The suite covers story navigation, the skip link, reduced motion, no-WebGL fallback and a mobile viewport.
+
 ## Notes
 
-- Fonts load from Google Fonts with a system fallback. Self-host them for production if you prefer.
+- Fonts load from Google Fonts with a system fallback; the story remains readable if the font request is unavailable.
 - Lighting uses built-in Lightformers, so no HDR file is downloaded.
-- Next steps from the roadmap: compress the GLB (gltf-transform), part callout labels,
-  colour variants, unit tests for `src/animation`, Playwright end-to-end tests.
+- A real desktop GLB, separately authored mobile GLB, physical-device profiling, Lighthouse scores and cross-browser QA are still release tasks. The built-in procedural model is used by default.
+- Halo H1 is a fictional concept. The specs and CTA are illustrative; no payment, waitlist or analytics backend is connected.
 
 ## Product experience additions
 
