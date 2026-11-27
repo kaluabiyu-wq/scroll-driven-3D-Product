@@ -43,7 +43,7 @@ export default function App() {
   useEffect(() => {
     const fallback = () => setMode('static');
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const onMotionChange = () => { if (motion.matches) fallback(); };
+    const onMotionChange = () => setMode(getRenderMode());
     window.addEventListener('halo:webgl-lost', fallback);
     motion.addEventListener('change', onMotionChange);
     return () => {

@@ -40,13 +40,13 @@ export default function Story() {
 
   return (
     <div id="story" ref={root} aria-label="Halo H1 product story">
-      {chapters.map((c, i) => (
+      {chapters.map((c) => (
         <section
           key={c.id}
           id={c.id}
           className={`chapter chapter--${c.align}${c.id === 'design' || c.id === 'explode' ? ' chapter--pinned' : ''}`}
           aria-labelledby={`${c.id}-title`}
-          style={{ height: `${(c.end - c.start) * 700 + (i === chapters.length - 1 ? 100 : 0)}svh`, minHeight: '0' }}
+          style={{ height: `${(c.end - c.start) * 700}svh`, minHeight: '0' }}
         >
           <div className="chapter-text">
             {c.id === 'intro' ? (
