@@ -104,3 +104,7 @@ The story includes a specification summary, keyboard-accessible FAQ, persistent 
 ## Continuous integration and release QA
 
 GitHub Actions runs `npm ci`, the unit suite and the production build for pushes and pull requests. Use `docs/qa-release-checklist.md` for the additional real-browser, accessibility, device-performance and deployment checks that cannot be proven by unit tests alone.
+
+## Graphics quality control
+
+Use the on-screen **3D quality** selector to choose Auto, Low, Medium or High. Auto selects a conservative tier from available device hints; manual choices override the automatic tier. The selection is saved locally. Low reduces pixel ratio and geometry detail and disables shadows/antialiasing; High enables the full desktop quality budget. Changing tiers rebuilds the WebGL renderer so the selected settings take effect consistently.

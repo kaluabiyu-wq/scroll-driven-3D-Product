@@ -15,6 +15,8 @@ import ShareControls from './ui/ShareControls';
 import BackToTop from './ui/BackToTop';
 import NetworkStatus from './ui/NetworkStatus';
 import KeyboardNavigation from './ui/KeyboardNavigation/KeyboardNavigation';
+import QualitySettings from './ui/QualitySettings/QualitySettings';
+import { QualityProvider } from './core/preferences/QualityContext';
 
 function FullExperience() {
   useSmoothScroll();
@@ -33,6 +35,7 @@ function FullExperience() {
         <BackToTop />
         <NetworkStatus />
         <KeyboardNavigation />
+        <QualitySettings />
         <Loader />
       </main>
     </>
@@ -57,9 +60,11 @@ export default function App() {
 
   const mode = webglUnavailable || reducedMotion ? 'static' : 'full';
   return (
+    <QualityProvider>
     <VariantProvider>
       {mode === 'full' ? <FullExperience /> : <div id="main-content"><StaticStory /></div>}
     </VariantProvider>
+    </QualityProvider>
   );
 }
 

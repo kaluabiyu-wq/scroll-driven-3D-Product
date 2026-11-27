@@ -1,16 +1,15 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ContactShadows, Environment, Lightformer } from '@react-three/drei';
-import { getQuality } from '../config/quality';
+import { useQualitySettings } from '../core/preferences/QualityContext';
 import CameraRig from './CameraRig';
 import ScrollSync from './ScrollSync';
 import Headphones from './product/Headphones';
 
 
-const quality = getQuality();
-
 /** Fixed full-screen canvas behind the page content. */
 export default function SceneCanvas() {
+  const { quality } = useQualitySettings();
   const [visible, setVisible] = useState(() => typeof document === 'undefined' || document.visibilityState === 'visible');
   const [inViewport, setInViewport] = useState(true);
 
@@ -29,6 +28,7 @@ export default function SceneCanvas() {
   return (
     <div className="canvas-layer" aria-hidden="true">
       <Canvas
+        key={quality.tier}
         dpr={quality.dpr}
         camera={{ fov: 38, position: [0, 0.3, 6.2], near: 0.1, far: 60 }}
         gl={{ antialias: quality.antialias, powerPreference: 'high-performance' }}
