@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getRenderMode } from './core/device/detect';
+import { hasWebGL } from './core/device/detect';
 import { useSmoothScroll } from './core/scroll/useSmoothScroll';
 import SceneCanvas from './canvas/SceneCanvas';
 import Story from './ui/Story';
@@ -14,6 +14,7 @@ import ProductDetails from './ui/Details/ProductDetails';
 import ShareControls from './ui/ShareControls';
 import BackToTop from './ui/BackToTop';
 import NetworkStatus from './ui/NetworkStatus';
+import KeyboardNavigation from './ui/KeyboardNavigation/KeyboardNavigation';
 
 function FullExperience() {
   useSmoothScroll();
@@ -31,6 +32,7 @@ function FullExperience() {
         <ColorSwitcher />
         <BackToTop />
         <NetworkStatus />
+        <KeyboardNavigation />
         <Loader />
       </main>
     </>
@@ -38,22 +40,26 @@ function FullExperience() {
 }
 
 export default function App() {
-  const [mode, setMode] = useState(getRenderMode);
+  const [webglUnavailable, setWebglUnavailable] = useState(() => !hasWebGL());
+  const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   useEffect(() => {
-    const fallback = () => setMode('static');
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const onMotionChange = () => setMode(getRenderMode());
-    window.addEventListener('halo:webgl-lost', fallback);
+    const onMotionChange = () => setReducedMotion(motion.matches);
+    const onWebglLost = () => setWebglUnavailable(true);
+    window.addEventListener('halo:webgl-lost', onWebglLost);
     motion.addEventListener('change', onMotionChange);
     return () => {
-      window.removeEventListener('halo:webgl-lost', fallback);
+      window.removeEventListener('halo:webgl-lost', onWebglLost);
       motion.removeEventListener('change', onMotionChange);
     };
   }, []);
+
+  const mode = webglUnavailable || reducedMotion ? 'static' : 'full';
   return (
     <VariantProvider>
       {mode === 'full' ? <FullExperience /> : <div id="main-content"><StaticStory /></div>}
     </VariantProvider>
   );
 }
+

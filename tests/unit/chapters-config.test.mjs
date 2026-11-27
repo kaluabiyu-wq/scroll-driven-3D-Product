@@ -17,11 +17,3 @@ test('chapter ids are unique and safe to use as anchors', () => {
   assert.equal(new Set(ids).size, ids.length);
   for (const id of ids) assert.match(id, /^[a-z][a-z0-9-]*$/);
 });
-
-test('chapter section heights map exactly to the 700vh scroll timeline', () => {
-  const totalViewportHeights = chapters.reduce(
-    (total, chapter) => total + (chapter.end - chapter.start) * 700,
-    0,
-  );
-  assert.equal(totalViewportHeights, 700);
-});

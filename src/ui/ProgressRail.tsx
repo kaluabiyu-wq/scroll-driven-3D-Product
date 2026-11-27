@@ -8,12 +8,7 @@ export default function ProgressRail() {
 
   useEffect(() => {
     const nextHash = `#${chapters[index].id}`;
-    if (window.location.hash !== nextHash) {
-      // Preserve query parameters and any router-owned history state while syncing the chapter hash.
-      const url = new URL(window.location.href);
-      url.hash = nextHash;
-      window.history.replaceState(window.history.state, '', url);
-    }
+    if (window.location.hash !== nextHash) window.history.replaceState(null, '', nextHash);
   }, [index]);
 
   return (
