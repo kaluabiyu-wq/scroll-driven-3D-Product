@@ -12,7 +12,7 @@ export default function ProgressRail() {
   }, [index]);
 
   return (
-    <nav className="rail" aria-label="Chapters">
+    <nav className="rail" aria-label="Story chapters">
       <ul>
         {chapters.map((c, i) => (
           <li key={c.id}>

@@ -39,7 +39,7 @@ export default function Story() {
   }, []);
 
   return (
-    <div id="story" ref={root}>
+    <div id="story" ref={root} aria-label="Halo H1 product story">
       {chapters.map((c, i) => (
         <section
           key={c.id}

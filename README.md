@@ -76,7 +76,7 @@ source/         keep your .blend file here (not served)
 
 The production build registers a small service worker and web app manifest. It caches the app shell and same-origin built assets as they are used, so a previously visited story can reopen offline. A small status notice announces when the browser loses its connection. Bump the cache version in `public/sw.js` when changing the offline shell.
 
-The 3D render loop pauses while the browser tab is hidden. Device tiers still cap pixel ratio and disable contact shadows on low-tier devices.
+The 3D render loop pauses while the browser tab is hidden or the story section is outside the viewport. ScrollTrigger refreshes after viewport and orientation changes, without doing layout work in the animation frame loop. Device tiers still cap pixel ratio and disable contact shadows on low-tier devices.
 
 ## Model asset pipeline
 
@@ -99,4 +99,8 @@ Install the optional Playwright runner and Chromium with `npm i -D @playwright/t
 
 ## Product experience additions
 
-The story includes a specification summary, keyboard-accessible FAQ, persistent finish preference, native share/copy-link control and a contextual Back to top action. These work in both the WebGL experience and static fallback. Halo H1 is a fictional showcase product; no checkout or mailing-list service is connected.
+The story includes a specification summary, keyboard-accessible FAQ, persistent finish preference, native share/copy-link control and a contextual Back to top action. These work in both the WebGL experience and static fallback. Exploded-view labels now include animated connector lines and fixed part-anchor dots. The loading indicator exposes its real asset progress as an accessible progressbar. Halo H1 is a fictional showcase product; no checkout or mailing-list service is connected.
+
+## Continuous integration and release QA
+
+GitHub Actions runs `npm ci`, the unit suite and the production build for pushes and pull requests. Use `docs/qa-release-checklist.md` for the additional real-browser, accessibility, device-performance and deployment checks that cannot be proven by unit tests alone.

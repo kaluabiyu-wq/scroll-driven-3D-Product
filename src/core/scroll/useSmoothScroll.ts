@@ -31,7 +31,20 @@ export function useSmoothScroll(enabled = true) {
     scrollState.target = trigger.progress;
     scrollState.current = trigger.progress;
 
+    // Mobile browser chrome and orientation changes alter the viewport height.
+    // Refresh ScrollTrigger once after the resize settles, never from the frame loop.
+    let refreshFrame = 0;
+    const refreshAfterResize = () => {
+      window.cancelAnimationFrame(refreshFrame);
+      refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+    };
+    window.addEventListener('resize', refreshAfterResize, { passive: true });
+    window.addEventListener('orientationchange', refreshAfterResize, { passive: true });
+
     return () => {
+      window.removeEventListener('resize', refreshAfterResize);
+      window.removeEventListener('orientationchange', refreshAfterResize);
+      window.cancelAnimationFrame(refreshFrame);
       trigger.kill();
       gsap.ticker.remove(tick);
       lenis.destroy();

@@ -18,7 +18,7 @@ export default function SceneCanvas() {
     const update = () => setVisible(document.visibilityState === 'visible');
     document.addEventListener('visibilitychange', update);
     const observer = new IntersectionObserver(([entry]) => setInViewport(entry.isIntersecting), { threshold: 0 });
-    const layer = document.querySelector('.canvas-layer');
+    const layer = document.querySelector('#story');
     if (layer) observer.observe(layer);
     return () => {
       document.removeEventListener('visibilitychange', update);

@@ -68,6 +68,6 @@ export const chapters: Chapter[] = [
     title: 'Your sound. Your finish.',
     text: 'Forty hours of playback and a full charge in under two hours over USB-C.',
     align: 'right',
-    cta: 'Join the waiting list',
+    cta: 'Explore product details',
   },
 ];

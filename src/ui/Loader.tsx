@@ -29,8 +29,15 @@ export default function Loader() {
       aria-live="polite"
       onTransitionEnd={() => done && setGone(true)}
     >
-      <div className="loader-bar" aria-hidden="true">
-        <span style={{ transform: `scaleX(${done ? 1 : Math.max(0.06, progress / 100)})` }} />
+      <div
+        className="loader-bar"
+        role="progressbar"
+        aria-label="Loading 3D product assets"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={done ? 100 : Math.round(progress)}
+      >
+        <span aria-hidden="true" style={{ transform: `scaleX(${done ? 1 : Math.max(0.06, progress / 100)})` }} />
       </div>
       <p>{done ? 'Ready' : 'Loading the studio'}</p>
     </div>
